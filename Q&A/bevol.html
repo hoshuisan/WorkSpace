@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>敏感/耐受性测试</title>
+    <link rel="stylesheet" type="text/css" href="css/swiper.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/skin_test.css"/>
+    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript">
+        var href = document.referrer;
+        if(href){
+            if(href.indexOf("skin_test/index.html") == -1){
+                window.location.href = "https://m.bevol.cn/skin_test/index.html";
+            }else{
+
+            }
+        }else{
+            window.location.href = "https://m.bevol.cn/skin_test/index.html";
+        }
+    </script>
+    <script type="text/javascript" src="js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript" src="js/arttmpl.js"></script>
+    <script type="text/javascript" src="js/skin_test.js"></script>
+    <script type="text/javascript" src="js/swiper.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+
+            var skinData = "";
+            var thisIndex = 0;
+            var swiper;
+            var testSkin = {};
+            var onFlag = false;
+            var flag = false;
+
+            $.ajax({
+                type: "POST",
+                url: "https://api.bevol.cn/survey/info",
+                data: {ids: 3},
+                dataType: "json",
+                success: function(data){
+                    if(data.ret == 0){
+                        skinData = data.result[0].question;
+                        var swiperHtml = template("swiper-tpl", {
+                            data: skinData
+                        })
+                        $("#swiper-html").append(swiperHtml);
+
+                        var answerHtml = template("answer-tpl", {
+                            data: skinData
+                        })
+                        $("#answer-html").append(answerHtml);
+                        $(".loading").css("display", "none");
+                        $(".skin-answer-info").eq(0).addClass("skin-answer-info skin-active");
+
+                        //swiper设置
+                        swiper = new Swiper('.swiper-container', {
+                            loop: false,
+                            pagination: '.swiper-pagination',
+                            slidesPerView: 7,
+                            centeredSlides: true,
+                            paginationClickable: true,
+                            spaceBetween: 0,
+                            initialSlide: thisIndex,
+
+                            onInit: function(swiper) { //Swiper2.x的初始化是onFirstInit
+                                onFlag = true;
+                            },
+                            onSlideChangeEnd: function(swiper) {
+                                thisIndex = swiper.activeIndex;
+                                for(var i = 0; i < $(".skin-answer-info").length; i++){
+                                    if(skinData[i].tip){
+                                        $(".skin-tips").eq(i).html(skinData[i].tip);
+                                    }else{
+                                        $(".skin-tips").eq(i).html("");
+                                    }
+                                }
+                                $(".skin-answer-info").removeClass("skin-active");
+                                $(".skin-answer-info").eq(thisIndex).addClass("skin-answer-info skin-active");
+                                onFlag = true;
+                            }
+                        });
+                    }
+                }
+            });
+
+            //答案点击
+            $("#answer-html").delegate(".pBtn", "click", function(){
+                if(onFlag == true){
+                    onFlag = false;
+                    var div = "<div class='p2'></div>";
+                    var data_id = $(this).attr("data-id");
+                    var data_mid = $(this).attr("data-mid");
+                    var data_score = $(this).attr("data-score");
+                    var parent = $("#answer_" + data_id).find("p");
+
+                    for(var i = 0; i < parent.length; i++){
+                        $(parent).eq(i).removeClass("active");
+                        if(skinData[i].tip){
+                            $(".skin-tips").eq(i).html(skinData[i].tip);
+                        }else{
+                            $(".skin-tips").eq(i).html("");
+                        }
+                    }
+                    $(this).addClass("active");
+                    $(".swiper-slide-active").prepend(div);
+
+                    testSkin[data_id] = {id: data_mid, score: data_score};
+
+                    var answerLen = 0;
+                    for(var key in testSkin){
+                        answerLen += 1;
+                    }
+                    if($(".skin-answer-info").length == answerLen){
+                        $(".container-header").css("display", "block");
+                        flag = true;
+                        onFlag = true;
+                    }else{
+                        $(".container-header").css("display", "none");
+                        flag = false;
+                    }
+                    swiper.slideNext();
+                }
+            })
+
+            //提交
+            var scoreTotal = 0;
+            $("#sumbit").click(function(){
+                if(flag == true){
+                    scoreTotal = 0;
+                    for(var key in testSkin){
+                        var score = parseInt(testSkin[key].score);
+                        scoreTotal += score;
+                    }
+                    window.location.href = "skin_result.html?score=" + scoreTotal;
+                }
+
+
+            })
+        })
+    </script>
+
+</head>
+<body>
+
+<div class="loading">正在加载中...</div>
+
+<div class="container">
+    <!--swiper html-->
+    <div class="container-banner" id="swiper-html">
+
+    </div>
+
+    <!--答案html-->
+    <div class="container-skin-answer-box" id="answer-html">
+
+    </div>
+
+    <div class="container-header">
+        <div id="sumbit" class="container-header-btn">提交</div>
+    </div>
+</div>
+
+</body>
+
+<!--swiper模板-->
+<script type="text/html" id="swiper-tpl">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <%for(var i = 0; i < data.length; i++){%>
+            <div class="swiper-slide">
+                <p class="p1"><%=i + 1%></p>
+            </div>
+            <%}%>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+</script>
+
+<!--答案模板-->
+<script type="text/template" id="answer-tpl">
+    <%for(var i = 0; i < data.length; i++){%>
+    <div class="skin-answer-info" id="answer_<%=data[i].id%>">
+        <%if(data[i].tip){%>
+        <div class="skin-tips"><%=data[i].tip%></div>
+        <%}else{%>
+        <div class="skin-tips"></div>
+        <%}%>
+        <h5 class="noCheck"><%=data[i].question%></h5>
+        <%for(var j = 0;j < data[i].answer.length; j++){%>
+        <p class="pBtn" data-id="<%=data[i].id%>" data-score="<%=data[i].answer[j].score%>" data-mid="<%=data[i].answer[j].id%>">
+            <%=data[i].answer[j].answer%>
+        </p>
+        <%}%>
+    </div>
+    <%}%>
+</script>
+
+</html>
