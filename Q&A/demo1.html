@@ -38,16 +38,24 @@
                 <label><input type="radio" name="C" value="Slider3-1">slider3-1</label>
                 <label><input type="radio" name="C" value="Slider3-1">slider3-1</label>
             </div>
+            <div class="swiper-pagination"></div>
         </div>
     </div>
 
     <script src="swiper.min.js"></script>
     <script>
-        var mySwiper = new Swiper('.swiper-container',{
-            onClick: function(swiper){
-                mySwiper.slideNext()
-            }
-        })
+        swiper = new Swiper('.swiper-container', {
+            loop: false,
+            pagination: '.swiper-pagination',
+            slidesPerView: 1,
+            centeredSlides: true,
+            paginationClickable: true,
+            spaceBetween: 0,
+            initialSlide: thisIndex,
+            autoplay:1000,
+
+
+        });
     </script>
 </body>
 </html>

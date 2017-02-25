@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="swiper.min.css">
+    <style>
+      html , body {
+        width: 100%;
+        height: 100%;
+
+      }
+
+      .swiper-container {
+        width:100%;
+        height:100%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .swiper-button-white{width:100%;height:0.88rem;border:1px solid #cfd5da;border-radius:0.1rem;margin:0.3rem 0 0.55rem 0;position:relative;background:#e3e7e7;box-sizing:border-box;}
+
+
+    </style>
+</head>
+<body>
+
+    <section class="page1">
+        <div class="swipers">
+            <div class="welcome">
+                <h3>敏感肌测试</h3>
+                <p>想要知道自己的肌肤类型？</p>
+                <p>快做一下我们为您准备的小测试吧~</p>
+            </div>
+            <a href="javascript:;" class="start">开始测试</a>
+        </div>
+    </section>
+
+    <section class="page2">
+        <div class="swipers">
+              <div class="swiper-container">
+                  <div class="swiper-wrapper">
+
+                      <div class="swiper-slide">
+                          <div class="quetion">
+                              <h3>Q1</h3>
+                          </div>
+                          <div class="choice">
+                              <label>
+                                  <input type="radio" name="c1" value="choice1">choice 1
+                              </label>
+                              <label>
+                                  <input type="radio" name="c1" value="choice2">choice 2
+                              </label>
+                          </div>
+                      </div>
+
+                      <div class="swiper-slide">
+                          <div class="quetion">
+                              <h3>Q2</h3>
+                          </div>
+                          <div class="choice">
+                              <label>
+                                  <input type="radio" name="c2" value="choice1">choice 1
+                              </label>
+                              <label>
+                                  <input type="radio" name="c2" value="choice2">choice 2
+                              </label>
+                          </div>
+                      </div>
+
+                      <div class="swiper-slide">
+                          <div class="quetion">
+                              <h3>Q3</h3>
+                          </div>
+                          <div class="choice">
+                              <label>
+                                  <input type="radio" name="c3" value="choice1">choice 1
+                              </label>
+                              <label>
+                                  <input type="radio" name="c3" value="choice2">choice 2
+                              </label>
+                          </div>
+                      </div>
+
+                      <div class="swiper-slide">
+                          <div class="quetion">
+                              <h3>Q4</h3>
+                          </div>
+                          <div class="choice">
+                              <label>
+                                  <input type="radio" name="c1" value="choice1">choice 1
+                              </label>
+                              <label>
+                                  <input type="radio" name="c1" value="choice2">choice 2
+                              </label>
+                          </div>
+                      </div>
+
+                      <div class="swiper-slide">
+                          <div class="quetion">
+                              <h3>Q5</h3>
+                          </div>
+                          <div class="choice">
+                              <label>
+                                  <input type="radio" name="c1" value="choice1">choice 1
+                              </label>
+                              <label>
+                                  <input type="radio" name="c1" value="choice2">choice 2
+                              </label>
+                          </div>
+                      </div>
+
+                  </div>
+
+                  <div class="swiper-button-white">
+                    <button class="swiper-button-prev"  style="width: 100px; height: 30px; background: cornflowerblue">上一题</button>
+                    <button class="swiper-button-next" style="width: 100px; height: 30px; background: cornflowerblue">下一题</button>
+                  </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page3">
+        <div class="result">
+            <h3>这是结果</h3>
+        </div>
+    </section>
+
+
+
+
+    <script src="jquery-3.1.1.min.js"></script>
+    <script src="swiper.min.js"></script>
+    <script>
+        //swiper设置
+        var mySwiper = new Swiper (".swiper-container", {
+          pagination: '.swiper-pagination',
+          nextButton: '.swiper-button-next',
+          prevButton: '.swiper-button-prev',
+          slidesPerView: 1,
+          paginationClickable: true,
+          spaceBetween: 0,
+          loop: false,
+          onReachEnd: function(swiper){
+            $(".page2").hide();
+            $(".page3").show();
+          }
+        });
+        $(".page2 , .page3").hide();
+        $(".start").on("click",function(){
+          $(" .page1").hide();
+          $(" .page2").show();
+        });
+        $(".swiper-container label,.swiper-container input").click(function(){
+          var this_active = $(this).parents(".swiper-slide").index();
+          setTimeout(function(){
+            mySwiper.slideTo(this_active+1,500)
+          },500);
+
+        });
+        $('.swiper-button-next').click(function(){
+          if(mySwiper .isEnd){
+            $(" .page2").hide();
+            $(" .page3").show();
+          }
+        })
+
+    </script>
+</body>
+</html>
