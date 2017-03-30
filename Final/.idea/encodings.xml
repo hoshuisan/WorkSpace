@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/css/spa.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/css/spa.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js/spa.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js/spa.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/js/spa.shell.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spa.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spa.shell.html" charset="UTF-8" />
+  </component>
+</project>
