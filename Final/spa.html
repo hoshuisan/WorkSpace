@@ -21,10 +21,13 @@
 
     <!-- 第二页 -->
     <section class="page2">
+        <header class="head">
+            <div class="swiper-pagination swiper-pagination-bullets pagination">
+            </div>
+        </header>
         <div class="swipers">
             <div class="swiper-container swiper-container-horizontal">
                 <div class="swiper-wrapper">
-
                     <!-- 问题1 -->
                     <div class="swiper-slide">
                         <div class="quetion">
@@ -279,6 +282,9 @@
         //swiper设置
         var mySwiper = new Swiper (".swiper-container", {
             pagination: '.swiper-pagination',
+            paginationBulletRender: function (swiper, index, className) {
+                return '<span class="' + className + '">' + (index +　1) + '</span>';
+            },
             slidesPerView: 1,
             paginationClickable: true,
             spaceBetween: 0,
@@ -305,7 +311,9 @@
                 $(" .page2").hide();
                 $(" .page3").show();
             }
-        })
+        });
+
+        $('span:last').css("display","none");
 
 
     </script>

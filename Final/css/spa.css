@@ -25,7 +25,10 @@ ol,ul,dl{
 body{
     font: 13px 'Trebuchet MS', Verdana , Helvetica , Arial , sans-serif;
     color: #888;
-    background-color: #FFB6C1;
+    background-color: #ffffff;
+    text-align: center;
+    min-height: 500px;
+    min-width: 500px;
 }
 
 a{
@@ -42,20 +45,38 @@ a:hover{
 }
 /**End standard selectors */
 
-/** Begin spa namespace selectors */
-#spa{
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    bottom: 8px;
-    right: 8px;
-
-    min-height: 500px;
-    min-width: 500px;
-    overflow: hidden;
-
-    background-color: #FAF0E6;
-    border-radius: 8px;
+.page1{
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    line-height: 100%;
 }
-/** End spa namespace selectors */
+
+.swiper-pagination-bullet {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 12px;
+    color: #000;
+    opacity: 1;
+    background: rgba(0,0,0,0.2);
+    margin: 70px 30px 0 0;
+}
+
+.swiper-pagination-bullet-active {
+    color: #fff;
+    background: #007aff;
+}
+
+.head{
+    background-color: #FFB6C1;
+    width: 100%;
+    height: 200px;
+}
+
+.pagination{
+    left: 0;
+    width: 100%;
+}
 

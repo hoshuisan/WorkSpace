@@ -33,5 +33,5 @@ $('.swiper-button-next').click(function(){
         $(" #page2").hide();
         $(" #page3").show();
     }
-})
+});
 
