@@ -50,6 +50,7 @@ a:hover{
     height: 100%;
     width: 100%;
     line-height: 100%;
+    margin-top: 20%;
 }
 
 .swiper-pagination-bullet {
@@ -80,3 +81,21 @@ a:hover{
     width: 100%;
 }
 
+.radio{
+    background: #007aff;
+    color: #000000;
+}
+
+input{
+    display: none;
+}
+
+label{
+    margin: 0 auto;
+    width: 300px;
+    display: block;
+}
+
+.question{
+    margin-bottom: 50px;
+}
